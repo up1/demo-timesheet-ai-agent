@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Daily Entry - TimeSystem</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Jetbrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-primary-fixed-variant": "#8f0045", "inverse-primary": "#ffb1c5", "on-surface-variant": "#594046", "on-error": "#ffffff", "surface-container-high": "#e6e8ea", "primary-container": "#ce1769", "tertiary-fixed": "#d3e4fe", "on-secondary-fixed-variant": "#005231", "on-primary": "#ffffff", "on-surface": "#191c1e", "inverse-surface": "#2d3133", "on-tertiary-fixed": "#0b1c30", outline: "#8d6f76", "on-background": "#191c1e", "surface-bright": "#f7f9fb", "on-primary-container": "#ffe8ec", "surface-variant": "#e0e3e5", surface: "#f7f9fb", "outline-variant": "#e1bec5", error: "#ba1a1a", "inverse-on-surface": "#eff1f3", secondary: "#006d42", "surface-container-highest": "#e0e3e5", "on-secondary-container": "#007146", "on-tertiary-fixed-variant": "#38485d", "on-secondary": "#ffffff", "on-error-container": "#93000a", "secondary-fixed": "#52ffac", primary: "#a50051", "on-secondary-fixed": "#002111", "secondary-fixed-dim": "#11e290", "tertiary-fixed-dim": "#b7c8e1", "on-tertiary-container": "#e3edff", "surface-dim": "#d8dadc", "surface-container": "#eceef0", "surface-tint": "#ba005c", tertiary: "#44546a", "on-primary-fixed": "#3f001b", "primary-fixed-dim": "#ffb1c5", "error-container": "#ffdad6", background: "#f7f9fb", "primary-fixed": "#ffd9e1", "surface-container-low": "#f2f4f6", "tertiary-container": "#5c6c83", "on-tertiary": "#ffffff", "secondary-container": "#46fda8", "surface-container-lowest": "#ffffff"}, borderRadius: {DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem"}, spacing: {xl: "32px", "container-max": "1440px", unit: "4px", lg: "24px", md: "16px", xs: "4px", sm: "8px", gutter: "20px"}, fontFamily: {"display-lg": ["Inter"], "body-lg": ["Inter"], "headline-sm": ["Inter"], "table-data": ["Inter"], "label-mono": ["JetBrains Mono"], "headline-md": ["Inter"], "body-sm": ["Inter"], "body-md": ["Inter"], headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Jetbrains Mono"]}, fontSize: {"display-lg": ["32px", {lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700"}], "body-lg": ["16px", {lineHeight: "24px", fontWeight: "400"}], "headline-sm": ["18px", {lineHeight: "28px", fontWeight: "600"}], "table-data": ["13px", {lineHeight: "18px", fontWeight: "400"}], "label-mono": ["12px", {lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500"}], "headline-md": ["24px", {lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600"}], "body-sm": ["12px", {lineHeight: "18px", fontWeight: "400"}], "body-md": ["14px", {lineHeight: "20px", fontWeight: "400"}]}}}};</script>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="flex flex-col w-60 h-screen fixed left-0 top-0 z-40 p-md bg-surface-container-low border-r border-outline-variant transition-all duration-200">
+<div class="mb-xl px-sm">
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">DevTime Pro</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Engineering Dept</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md px-md py-sm rounded transition-all duration-200 text-on-surface-variant hover:bg-surface-container" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-sm text-body-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded transition-all duration-200 text-on-surface-variant hover:bg-surface-container" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-body-sm text-body-sm">Reports</span>
+</a>
+<!-- Active Tab Mapping: Add Entry -->
+<a class="flex items-center gap-md px-md py-sm rounded transition-all duration-200 text-secondary bg-surface-container-highest font-bold border-r-4 border-secondary" href="#">
+<span class="material-symbols-outlined" data-icon="add_task">add_task</span>
+<span class="font-body-sm text-body-sm">Add Entry</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1">
+<a class="flex items-center gap-md px-md py-sm rounded transition-all duration-200 text-on-surface-variant hover:bg-surface-container" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-sm text-body-sm">Settings</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded transition-all duration-200 text-on-surface-variant hover:bg-surface-container" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span class="font-body-sm text-body-sm">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-60 flex flex-col min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="flex justify-between items-center h-16 px-xl w-full sticky top-0 z-50 bg-surface-container-lowest border-b border-outline-variant">
+<div class="flex items-center gap-md">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">TimeSystem</span>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-sm px-md py-xs bg-surface-container rounded-lg">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md w-48" placeholder="Search entries..." type="text"/>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary p-xs hover:bg-surface-container transition-colors rounded-full" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-primary p-xs hover:bg-surface-container transition-colors rounded-full" data-icon="help">help</button>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center">
+<img class="w-full h-full rounded-full object-cover" data-alt="A clean, professional headshot of a software engineer with glasses, looking directly at the camera with a neutral expression. The lighting is bright and modern, set against a blurred office background with cool blue and white tones that match the Corporate Modern UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHoYi0h3Lqxi_5qpBk-KOxipG38WxdRbxCPimfHhcyAVlUptViqXWKRSY5QrXVFd0SRV8eh3UrnKixkyowDo_R7mErEzh4Q12c5vEvi5MEfrEIibi81qgoE0Uq-8iS9PekEALNZ1-Xn9Q4LnWf86OYpyK4ND9_d6JpfmopDv709s8nTg3jdL9D5yE9eREAxQ3uFWka2aA3Ftm67Msh7MO_nwEEzSL4WjJOuQb1MeMQu7cJUBK9w3D-C7L-pnZ7ovHPUUixYpEW5lKc"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Workspace -->
+<div class="p-xl flex-1 flex flex-col gap-lg max-w-7xl mx-auto w-full">
+<div class="flex items-end justify-between border-b border-outline-variant pb-md">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-surface">Add Daily Entry</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Log your professional hours for today.</p>
+</div>
+<div class="font-label-mono text-label-mono bg-secondary-fixed text-on-secondary-fixed px-sm py-xs rounded">
+                    WEEK 42 • OCT 2023
+                </div>
+</div>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Entry Form -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded p-xl">
+<form class="space-y-lg" id="entryForm">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="flex flex-col gap-xs">
+<label class="font-body-md text-body-md font-semibold text-on-surface">Date</label>
+<div class="relative">
+<input class="w-full border border-outline-variant rounded px-md py-sm bg-surface-container-lowest focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all" id="entryDate" type="date"/>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-body-md text-body-md font-semibold text-on-surface">Hours Spent</label>
+<input class="w-full border border-outline-variant rounded px-md py-sm bg-surface-container-lowest focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all" max="24" min="0.5" placeholder="e.g., 4.5" step="0.5" type="number"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="flex flex-col gap-xs">
+<label class="font-body-md text-body-md font-semibold text-on-surface">Customer</label>
+<select class="w-full border border-outline-variant rounded px-md py-sm bg-surface-container-lowest focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all appearance-none">
+<option disabled="" selected="" value="">Select Customer</option>
+<option>Acme Dynamics</option>
+<option>Global Logistics Corp</option>
+<option>Starlight FinTech</option>
+<option>Quantum Systems</option>
+</select>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-body-md text-body-md font-semibold text-on-surface">Project</label>
+<select class="w-full border border-outline-variant rounded px-md py-sm bg-surface-container-lowest focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all appearance-none">
+<option disabled="" selected="" value="">Select Project</option>
+<option>Cloud Migration Phase II</option>
+<option>Legacy Refactoring</option>
+<option>Security Audit</option>
+<option>Mobile App Backend</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-body-md text-body-md font-semibold text-on-surface">Task Description</label>
+<textarea class="w-full border border-outline-variant rounded px-md py-sm bg-surface-container-lowest focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all resize-none" placeholder="Briefly describe the work completed..." rows="4"></textarea>
+</div>
+<div class="flex justify-end items-center gap-md pt-md border-t border-outline-variant">
+<button class="px-lg py-sm rounded border border-secondary text-secondary font-semibold hover:bg-surface-container transition-all" type="button">
+                                Cancel
+                            </button>
+<button class="px-lg py-sm rounded bg-primary text-on-primary font-semibold hover:opacity-90 transition-all shadow-sm active:scale-95" type="submit">
+                                Submit Entry
+                            </button>
+</div>
+</form>
+</section>
+<!-- Sidebar Content: Recent Entries & Quick Stats -->
+<aside class="col-span-12 lg:col-span-4 flex flex-col gap-lg">
+<!-- Quick Stats Card -->
+<div class="bg-surface-container-high border border-outline-variant rounded p-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+                            Daily Progress
+                        </h3>
+<div class="flex justify-between items-end">
+<div>
+<span class="font-display-lg text-display-lg text-primary">6.5</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/ 8.0 hrs logged</span>
+</div>
+<div class="w-24 h-2 bg-surface-variant rounded-full overflow-hidden mb-2">
+<div class="bg-secondary h-full w-[81%]"></div>
+</div>
+</div>
+</div>
+<!-- Recent Entries -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded overflow-hidden flex flex-col flex-1">
+<div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h3 class="font-body-md text-body-md font-bold text-on-surface">Recent Entries</h3>
+<a class="text-secondary font-body-sm text-body-sm hover:underline" href="#">View All</a>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar max-h-[400px]">
+<div class="divide-y divide-outline-variant">
+<!-- Entry Item -->
+<div class="p-md hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-body-sm text-body-sm font-semibold text-primary">Cloud Migration Phase II</h4>
+<span class="font-label-mono text-label-mono text-secondary">2.5h</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Refactored AWS Lambda functions for better performance...</p>
+<div class="mt-2 flex items-center gap-xs">
+<span class="px-xs py-[2px] bg-surface-container text-on-surface-variant font-label-mono text-[10px] rounded">ACME DYNAMICS</span>
+<span class="text-[10px] text-outline">• Oct 24</span>
+</div>
+</div>
+<!-- Entry Item -->
+<div class="p-md hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-body-sm text-body-sm font-semibold text-primary">Security Audit</h4>
+<span class="font-label-mono text-label-mono text-secondary">4.0h</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Vulnerability assessment on core API endpoints.</p>
+<div class="mt-2 flex items-center gap-xs">
+<span class="px-xs py-[2px] bg-surface-container text-on-surface-variant font-label-mono text-[10px] rounded">STARLIGHT FINTECH</span>
+<span class="text-[10px] text-outline">• Oct 23</span>
+</div>
+</div>
+<!-- Entry Item -->
+<div class="p-md hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-body-sm text-body-sm font-semibold text-primary">Mobile App Backend</h4>
+<span class="font-label-mono text-label-mono text-secondary">1.0h</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Syncing database schemas with frontend team.</p>
+<div class="mt-2 flex items-center gap-xs">
+<span class="px-xs py-[2px] bg-surface-container text-on-surface-variant font-label-mono text-[10px] rounded">QUANTUM SYSTEMS</span>
+<span class="text-[10px] text-outline">• Oct 23</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Helpful Tip Card -->
+<div class="p-md border-l-4 border-secondary bg-secondary-fixed/30 rounded-r">
+<div class="flex gap-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="lightbulb">lightbulb</span>
+<p class="font-body-sm text-body-sm text-on-secondary-fixed">Tip: Use the global "New Entry" shortcut (N) to quickly access this page from anywhere.</p>
+</div>
+</div>
+</aside>
+</div>
+</div>
+<!-- Sticky Footer Summary for Mobile View (Hidden on Desktop) -->
+<div class="lg:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest border-t border-outline-variant p-md flex justify-around items-center z-50">
+<div class="text-center">
+<span class="block font-headline-sm text-headline-sm text-primary">6.5</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">HRS TODAY</span>
+</div>
+<button class="bg-primary text-on-primary px-xl py-sm rounded-full font-semibold shadow-lg">
+                Submit All
+            </button>
+</div>
+</main>
+<script>
+        // Set default date to today
+        document.getElementById('entryDate').valueAsDate = new Date();
+
+        // Form submission animation/micro-interaction
+        document.getElementById('entryForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin" data-icon="sync">sync</span> Saving...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined" data-icon="check">check</span> Success';
+                btn.classList.replace('bg-primary', 'bg-green-600');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.replace('bg-green-600', 'bg-primary');
+                    btn.disabled = false;
+                    e.target.reset();
+                    document.getElementById('entryDate').valueAsDate = new Date();
+                }, 2000);
+            }, 800);
+        });
+
+        // Hover animations for sidebar
+        const navItems = document.querySelectorAll('nav a');
+        navItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                if (!item.classList.contains('text-secondary')) {
+                    item.style.paddingLeft = '20px';
+                }
+            });
+            item.addEventListener('mouseleave', () => {
+                if (!item.classList.contains('text-secondary')) {
+                    item.style.paddingLeft = '16px';
+                }
+            });
+        });
+    </script>
+</body></html>
