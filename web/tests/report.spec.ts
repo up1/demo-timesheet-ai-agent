@@ -38,6 +38,7 @@ function summaryFor(rows: typeof SEED) {
 const rowCount = (page: Page) => page.getByTestId('report-row').count();
 
 test.beforeEach(async ({ page }) => {
+  await page.request.post('/__test/reset');
   await page.goto('/report');
 });
 

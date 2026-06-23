@@ -68,4 +68,23 @@ function getSummary(filter = {}) {
   };
 }
 
-module.exports = { getCount, getRows, getSummary };
+/**
+ * Insert a new timesheet entry.
+ * @param {{ employee_name: string, date: string, project: string, description: string, hours: number }} entry
+ * @returns {number|bigint} The id of the inserted row.
+ */
+function createEntry(entry) {
+  const info = db
+    .prepare(
+      'INSERT INTO timesheet_entries (employee_name, date, project, description, hours) VALUES (?, ?, ?, ?, ?)'
+    )
+    .run(entry.employee_name, entry.date, entry.project, entry.description, entry.hours);
+  return info.lastInsertRowid;
+}
+
+/** Get the most recently added entries (newest first). */
+function getRecent(limit = 5) {
+  return db.prepare('SELECT * FROM timesheet_entries ORDER BY id DESC LIMIT ?').all(limit);
+}
+
+module.exports = { getCount, getRows, getSummary, createEntry, getRecent };

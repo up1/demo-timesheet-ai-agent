@@ -57,3 +57,62 @@ All 6 tests pass (TC001–TC006), tagged `@high @feature01`.
 - `node:sqlite` prints an ExperimentalWarning — harmless.
 - Spec wording says "filter by Customer name" but the schema/test data use
   `employee_name` (test filters by "John Doe"), so the filter is by employee.
+
+---
+
+## Feature: Add Data (`/add`)
+
+Implemented from `spec/2_add_data/spec_add_data.md` and `template_add_data.html`.
+
+### Files added/changed
+```
+controllers/addController.js  # getAddForm + postAddEntry (validation + persist)
+routes/addRoutes.js           # GET /add, POST /add
+routes/testRoutes.js          # POST /__test/reset (non-production only)
+views/add.ejs                 # Add Timesheet Entry form (from template)
+models/db.js                  # + reset() to reseed for test isolation
+models/timesheetModel.js      # + createEntry(), getRecent()
+app.js                        # + express.urlencoded, add/test routes
+views/partials/sidebar.ejs    # active-state aware; Add Entry/New Entry -> /add
+tests/add.spec.ts             # Playwright tests (TC001–TC010, @feature02)
+```
+
+### Behaviour
+- `GET /add`: renders the form (title "Add Timesheet Entry"), recent entries,
+  and total entry count.
+- `POST /add`: validates, persists, then `302` redirect to `/report`.
+  On validation failure: re-renders `/add` with `400`, inline errors, and
+  preserved values (no redirect).
+
+### Field -> column mapping
+Form fields are Date, Hours Spent, Customer, Project, Task Description.
+The schema has no Customer column, so (consistent with the report feature)
+the **Customer value is stored in `employee_name`**.
+- Date -> date, Hours Spent -> hours, Project -> project,
+  Task Description -> description, Customer -> employee_name.
+
+### Validation rules (server-side; no HTML `required`, so tests hit the server)
+| Field            | Rule                          | Error message                          |
+|------------------|-------------------------------|----------------------------------------|
+| Date             | Required                      | Date is required                       |
+| Hours Spent      | Required, positive number     | Hours spent must be a positive number  |
+| Customer         | Required                      | Customer is required                   |
+| Project          | Required                      | Project is required                    |
+| Task Description | Optional, must be a string    | Task description must be a string       |
+
+### Key test IDs
+`page-title`, `add-form`, `input-date`, `input-hours`, `input-customer`,
+`input-project`, `input-description`, `submit-entry`, `cancel-entry`,
+`error-date`, `error-hours`, `error-customer`, `error-project`,
+`error-summary`, `entry-count`, `recent-list`, `recent-item`,
+`nav-add-entry`, `nav-new-entry`.
+
+### Test isolation
+In-memory SQLite is shared across tests in a run. `POST /__test/reset`
+(guarded by `NODE_ENV !== 'production'`) reseeds the 14-row dataset; both
+spec files call it in `beforeEach` so report count/summary assertions stay
+deterministic regardless of rows added by the add tests.
+
+### Test status
+All 16 tests pass: report TC001–TC006 (`@feature01`) + add TC001–TC010
+(`@feature02`).

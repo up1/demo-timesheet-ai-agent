@@ -37,6 +37,7 @@ exports.getReport = (req, res) => {
 
   res.render('report', {
     title: 'Timesheet Report',
+    active: 'reports',
     rows,
     summary,
     filters,

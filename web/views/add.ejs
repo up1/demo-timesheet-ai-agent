@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<%- include('partials/head') %>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<%- include('partials/sidebar') %>
+
+<!-- Main Content Area -->
+<main class="ml-60 flex flex-col min-h-screen">
+  <!-- Main Workspace -->
+  <div class="p-xl flex-1 flex flex-col gap-lg max-w-7xl mx-auto w-full">
+    <!-- Header -->
+    <div class="flex items-end justify-between border-b border-outline-variant pb-md">
+      <div>
+        <h2 class="font-display-lg text-display-lg text-on-surface" data-testid="page-title">Add Timesheet Entry</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">Log your professional hours.</p>
+      </div>
+      <a href="/report" class="font-label-mono text-label-mono bg-secondary-fixed text-on-secondary-fixed px-sm py-xs rounded hover:brightness-105 transition-all" data-testid="back-to-report">
+        BACK TO REPORT
+      </a>
+    </div>
+
+    <div class="grid grid-cols-12 gap-gutter">
+      <!-- Entry Form -->
+      <section class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded p-xl">
+        <% if (Object.keys(errors).length > 0) { %>
+          <div class="mb-lg p-md border-l-4 border-error bg-error-container/40 rounded-r" data-testid="error-summary">
+            <p class="font-body-md text-body-md text-on-error-container font-semibold">Please fix the highlighted fields.</p>
+          </div>
+        <% } %>
+
+        <form class="space-y-lg" method="POST" action="/add" data-testid="add-form" novalidate>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+            <!-- Date -->
+            <div class="flex flex-col gap-xs">
+              <label class="font-body-md text-body-md font-semibold text-on-surface" for="date">Date</label>
+              <input class="w-full border border-outline-variant rounded px-md py-sm bg-surface-container-lowest focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all"
+                     id="date" name="date" type="date" value="<%= values.date %>" data-testid="input-date" />
+              <% if (errors.date) { %>
+                <p class="font-body-sm text-body-sm text-error" data-testid="error-date"><%= errors.date %></p>
+              <% } %>
+            </div>
+            <!-- Hours Spent -->
+            <div class="flex flex-col gap-xs">
+              <label class="font-body-md text-body-md font-semibold text-on-surface" for="hours">Hours Spent</label>
+              <input class="w-full border border-outline-variant rounded px-md py-sm bg-surface-container-lowest focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all"
+                     id="hours" name="hours" type="number" min="0" step="0.5" placeholder="e.g., 4.5"
+                     value="<%= values.hours %>" data-testid="input-hours" />
+              <% if (errors.hours) { %>
+                <p class="font-body-sm text-body-sm text-error" data-testid="error-hours"><%= errors.hours %></p>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+            <!-- Customer -->
+            <div class="flex flex-col gap-xs">
+              <label class="font-body-md text-body-md font-semibold text-on-surface" for="customer">Customer</label>
+              <select class="w-full border border-outline-variant rounded px-md py-sm bg-surface-container-lowest focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all appearance-none"
+                      id="customer" name="customer" data-testid="input-customer">
+                <option value="" <%= values.customer ? '' : 'selected' %>>Select Customer</option>
+                <% ['Acme Dynamics', 'Global Logistics Corp', 'Starlight FinTech', 'Quantum Systems'].forEach(function (c) { %>
+                  <option value="<%= c %>" <%= values.customer === c ? 'selected' : '' %>><%= c %></option>
+                <% }); %>
+              </select>
+              <% if (errors.customer) { %>
+                <p class="font-body-sm text-body-sm text-error" data-testid="error-customer"><%= errors.customer %></p>
+              <% } %>
+            </div>
+            <!-- Project -->
+            <div class="flex flex-col gap-xs">
+              <label class="font-body-md text-body-md font-semibold text-on-surface" for="project">Project</label>
+              <select class="w-full border border-outline-variant rounded px-md py-sm bg-surface-container-lowest focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all appearance-none"
+                      id="project" name="project" data-testid="input-project">
+                <option value="" <%= values.project ? '' : 'selected' %>>Select Project</option>
+                <% ['Cloud Migration Phase II', 'Legacy Refactoring', 'Security Audit', 'Mobile App Backend'].forEach(function (p) { %>
+                  <option value="<%= p %>" <%= values.project === p ? 'selected' : '' %>><%= p %></option>
+                <% }); %>
+              </select>
+              <% if (errors.project) { %>
+                <p class="font-body-sm text-body-sm text-error" data-testid="error-project"><%= errors.project %></p>
+              <% } %>
+            </div>
+          </div>
+
+          <!-- Task Description -->
+          <div class="flex flex-col gap-xs">
+            <label class="font-body-md text-body-md font-semibold text-on-surface" for="description">Task Description</label>
+            <textarea class="w-full border border-outline-variant rounded px-md py-sm bg-surface-container-lowest focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all resize-none"
+                      id="description" name="description" rows="4" placeholder="Briefly describe the work completed..."
+                      data-testid="input-description"><%= values.description %></textarea>
+            <% if (errors.description) { %>
+              <p class="font-body-sm text-body-sm text-error" data-testid="error-description"><%= errors.description %></p>
+            <% } %>
+          </div>
+
+          <div class="flex justify-end items-center gap-md pt-md border-t border-outline-variant">
+            <a href="/report" class="px-lg py-sm rounded border border-secondary text-secondary font-semibold hover:bg-surface-container transition-all" data-testid="cancel-entry">
+              Cancel
+            </a>
+            <button class="px-lg py-sm rounded bg-primary text-on-primary font-semibold hover:opacity-90 transition-all shadow-sm active:scale-95" type="submit" data-testid="submit-entry">
+              Submit Entry
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Sidebar Content: Quick Stats & Recent Entries -->
+      <aside class="col-span-12 lg:col-span-4 flex flex-col gap-lg">
+        <!-- Quick Stats Card -->
+        <div class="bg-surface-container-high border border-outline-variant rounded p-md">
+          <h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm flex items-center gap-xs">
+            <span class="material-symbols-outlined">monitoring</span>
+            Logged Entries
+          </h3>
+          <div class="flex justify-between items-end">
+            <div>
+              <span class="font-display-lg text-display-lg text-primary" data-testid="entry-count"><%= count %></span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">total entries</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Entries -->
+        <div class="bg-surface-container-lowest border border-outline-variant rounded overflow-hidden flex flex-col flex-1">
+          <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+            <h3 class="font-body-md text-body-md font-bold text-on-surface">Recent Entries</h3>
+            <a class="text-secondary font-body-sm text-body-sm hover:underline" href="/report">View All</a>
+          </div>
+          <div class="flex-1 overflow-y-auto custom-scrollbar max-h-[400px]">
+            <div class="divide-y divide-outline-variant" data-testid="recent-list">
+              <% if (recent.length === 0) { %>
+                <div class="p-md font-body-sm text-body-sm text-on-surface-variant" data-testid="recent-empty">No entries yet.</div>
+              <% } else { %>
+                <% recent.forEach(function (entry) { %>
+                  <div class="p-md hover:bg-surface-container transition-colors group" data-testid="recent-item">
+                    <div class="flex justify-between items-start mb-1">
+                      <h4 class="font-body-sm text-body-sm font-semibold text-primary"><%= entry.project %></h4>
+                      <span class="font-label-mono text-label-mono text-secondary"><%= entry.hours.toFixed(1) %>h</span>
+                    </div>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1"><%= entry.description %></p>
+                    <div class="mt-2 flex items-center gap-xs">
+                      <span class="px-xs py-[2px] bg-surface-container text-on-surface-variant font-label-mono text-[10px] rounded uppercase"><%= entry.employee_name %></span>
+                      <span class="text-[10px] text-outline">• <%= entry.date %></span>
+                    </div>
+                  </div>
+                <% }); %>
+              <% } %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Helpful Tip Card -->
+        <div class="p-md border-l-4 border-secondary bg-secondary-fixed/30 rounded-r">
+          <div class="flex gap-sm">
+            <span class="material-symbols-outlined text-secondary">lightbulb</span>
+            <p class="font-body-sm text-body-sm text-on-secondary-fixed">Tip: All fields except Task Description are required.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+</body>
+</html>

@@ -46,6 +46,13 @@ function seed() {
   }
 }
 
+/** Clear all rows and restore the deterministic seed dataset (used for test isolation). */
+function reset() {
+  db.exec('DELETE FROM timesheet_entries');
+  db.exec("DELETE FROM sqlite_sequence WHERE name = 'timesheet_entries'");
+  seed();
+}
+
 seed();
 
-module.exports = { db, seedData };
+module.exports = { db, seedData, reset };

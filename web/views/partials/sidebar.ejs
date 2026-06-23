@@ -9,25 +9,30 @@
     </div>
     <p class="font-body-sm text-body-sm text-on-surface-variant opacity-70">Engineering Dept</p>
   </div>
+  <%
+    const activeNav = typeof active !== 'undefined' ? active : '';
+    const navIdle = 'flex items-center gap-md p-sm font-body-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded-lg';
+    const navActive = 'flex items-center gap-md p-sm font-body-sm text-secondary dark:text-secondary-fixed-dim bg-surface-container-highest dark:bg-surface-container-high font-bold border-r-4 border-secondary rounded-l-lg';
+  %>
   <nav class="flex-1 space-y-1">
-    <a class="flex items-center gap-md p-sm font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+    <a class="<%= navIdle %>" href="#">
       <span class="material-symbols-outlined">dashboard</span>
       <span>Dashboard</span>
     </a>
-    <a class="flex items-center gap-md p-sm font-body-sm text-secondary dark:text-secondary-fixed-dim bg-surface-container-highest dark:bg-surface-container-high font-bold border-r-4 border-secondary rounded-l-lg" href="/report" data-testid="nav-reports">
+    <a class="<%= activeNav === 'reports' ? navActive : navIdle %>" href="/report" data-testid="nav-reports">
       <span class="material-symbols-outlined">analytics</span>
       <span>Reports</span>
     </a>
-    <a class="flex items-center gap-md p-sm font-body-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+    <a class="<%= activeNav === 'add' ? navActive : navIdle %>" href="/add" data-testid="nav-add-entry">
       <span class="material-symbols-outlined">add_task</span>
       <span>Add Entry</span>
     </a>
   </nav>
   <div class="mt-auto space-y-1 border-t border-outline-variant pt-md">
-    <button class="w-full bg-primary text-on-primary py-sm px-md rounded-lg flex items-center justify-center gap-sm mb-md active:opacity-80 transition-all">
+    <a class="w-full bg-primary text-on-primary py-sm px-md rounded-lg flex items-center justify-center gap-sm mb-md active:opacity-80 transition-all" href="/add" data-testid="nav-new-entry">
       <span class="material-symbols-outlined">add</span>
       <span class="font-body-md text-body-md">New Entry</span>
-    </button>
+    </a>
     <a class="flex items-center gap-md p-sm font-body-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors rounded-lg" href="#">
       <span class="material-symbols-outlined">settings</span>
       <span>Settings</span>
