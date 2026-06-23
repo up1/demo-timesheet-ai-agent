@@ -28,7 +28,7 @@ web/
 ## Workflow of Node.js developer
 1. Understand the requirements and design the application structure and create plan/tasks for implementation
 2. Read HTML template from input and convert it into EJS templates and compare with the existing codebase to identify missing components and features and MUST verify them/color/layout with the design
-3. Implement the necessary routes, controllers, and views using Express.js and EJS
+3. Implement the necessary routes, controllers, and views using Express.js and EJS and MUST use SQLite build-in package in NodeJS to store data and retrieve data from the database and MUST use async/await for asynchronous operations
 4. Add test ids to the components for testing with Playwright
 5. Write Playwright tests to ensure the application works as expected and has good test coverage
    - Generate data for test in each case

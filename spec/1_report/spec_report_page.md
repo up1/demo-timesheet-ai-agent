@@ -43,11 +43,11 @@
      
 2. Test cases show in table format
 
-| Test ID | Test Description | Test Steps | Expected Result |
-|---------|------------------|------------|-----------------|
-| TC001   | Verify page loads successfully | 1. Navigate to `/report` <br> 2. Check page title | Page title is `Timesheet Report` and page loads without errors
-| TC002   | Verify data is displayed in table format | 1. Navigate to `/report` <br> 2. Check for table element and data rows | Table is displayed with correct data from `timesheet_entries` table
-| TC003   | Verify summary data is correct | 1. Navigate to `/report` <br> 2. Calculate total hours, active projects, billable, and avg entries/dev from sample data <br> 3. Compare with displayed summary | Summary data matches calculated values based on sample data
-| TC004   | Verify filtering by customer name | 1. Navigate to  `/report` <br> 2. Enter `John Doe` in customer name filter <br> 3. Apply filter | Only records for `John Doe` are displayed in the table
-| TC005   | Verify filtering by date range | 1. Navigate to `/report` <br> 2. Set date range from `2026-06-01` to `2026-06-02` <br> 3. Apply filter | Only records within the specified date range are displayed in the table
-| TC006   | Verify pagination works correctly | 1. Insert more than 10 records into `timesheet_entries` table <br> 2. Navigate to `/report` <br> 3. Check for pagination controls <br> 4. Navigate through pages | Pagination controls are displayed and navigating through pages shows correct records for each page  
+| Test ID | Test Description | Test Steps | Expected Result | Test tag for playwright |
+|---------|------------------|------------|-----------------|--------------------------|
+| TC001   | Verify page loads successfully | 1. Navigate to `/report` <br> 2. Check page title | Page title is `Timesheet Report` and page loads without errors | high, feature01 |
+| TC002   | Verify data is displayed in table format | 1. Navigate to `/report` <br> 2. Check for table element and data rows | Table is displayed with correct data from `timesheet_entries` table | high, feature01 |
+| TC003   | Verify summary data is correct | 1. Navigate to `/report` <br> 2. Calculate total hours, active projects, billable, and avg entries/dev from sample data <br> 3. Compare with displayed summary | Summary data matches calculated values based on sample data | high, feature01 |
+| TC004   | Verify filtering by customer name | 1. Navigate to  `/report` <br> 2. Enter `John Doe` in customer name filter <br> 3. Apply filter | Only records for `John Doe` are displayed in the table | high, feature01 |
+| TC005   | Verify filtering by date range | 1. Navigate to `/report` <br> 2. Set date range from `2026-06-01` to `2026-06-02` <br> 3. Apply filter | Only records within the specified date range are displayed in the table | high, feature01 |
+| TC006   | Verify pagination works correctly | 1. Insert more than 10 records into `timesheet_entries` table <br> 2. Navigate to `/report` <br> 3. Check for pagination controls <br> 4. Navigate through pages | Pagination controls are displayed and navigating through pages shows correct records for each page | high, feature01 |
