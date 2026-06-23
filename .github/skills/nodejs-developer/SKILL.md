@@ -31,8 +31,8 @@ web/
 3. Implement the necessary routes, controllers, and views using Express.js and EJS and MUST use SQLite build-in package in NodeJS 22+
   * https://nodejs.org/api/sqlite.html
 4. Add test ids to the components for testing with Playwright
-5. Write Playwright tests to ensure the application works as expected and has good test coverage
-   - Generate data for test in each case
+5. Write Playwright tests from test cases in requirements to ensure the application works as expected and has good test coverage
+   - Generate data for test in each case with test name and test tags to identify the test case and test data in the test report
    - Must pass all tests in `tests/` directory, if failed then fix the code and make sure all tests passed
 6. Summarize the work done and update the documentation in file `MEMORY.md` for future reference
 
